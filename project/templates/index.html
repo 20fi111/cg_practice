@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block main %}
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">タイトル</th>
+            <th scope="col">開始時刻</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in gametitle %}
+        <tr>
+            <td>{{ row["title"] }}</td>
+            <td>{{ row["starttime_kari"] }}</td>
+            <td></td>
+            <form method="POST" action="/startlog">
+            <td>
+                <input type="hidden" name="gametitle" value="{{ row["title"] }}">
+                    <button class="btn btn-primary" type="submit">開始</button>
+
+            </td>
+            </form>
+            <td>
+                <form method="POST" action="/finishlog">
+                    <input type="hidden"  name="starttime" value="{{ row["starttime_kari"] }}">
+                    <input type="hidden" name="gametitle" value="{{ row["title"] }}">
+                    <button class="btn btn-primary" type="submit">終了</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
